@@ -1,4 +1,6 @@
 package net.chazim.potatogun.common;
 
-public class CommonProxy {
+public class CommonProxy
+{
+
 }

@@ -7,12 +7,14 @@ import net.minecraft.item.Item;
 
 public class PotatoGunTab extends CreativeTabs
 {
-    public PotatoGunTab() {
+    public PotatoGunTab()
+	{
         super(Reference.MOD_ID.toLowerCase());
     }
 
     @Override
-    public Item getTabIconItem() {
+    public Item getTabIconItem()
+	{
         return Items.potato;
     }
 }
