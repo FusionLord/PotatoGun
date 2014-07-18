@@ -7,12 +7,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.chazim.potatogun.common.CommonProxy;
+import net.chazim.potatogun.handler.EventHandler;
 import net.chazim.potatogun.handler.GUIHandler;
 import net.chazim.potatogun.init.ModBlocks;
 import net.chazim.potatogun.init.ModItems;
 import net.chazim.potatogun.init.ModTileEntities;
 
-@Mod(modid = Reference.MOD_ID, name = "Potato Gun")
+@Mod(modid = Reference.MOD_ID, name = "Potato Gun", version = "0.0")
 public class PotatoGun
 {
 	@Mod.Instance(Reference.MOD_ID)
@@ -33,6 +34,7 @@ public class PotatoGun
 		ModItems.init();
 		ModBlocks.init();
 		ModTileEntities.init();
+		EventHandler.init();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
 	}
