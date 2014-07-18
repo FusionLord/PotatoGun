@@ -1,0 +1,6 @@
+item.potatogun:potatogunparts.name=Potato Gun Parts
+item.potatogun:potatogun.name=Potato Gun
+
+tile.potatogun:forge.name=Forge
+
+itemgroup.potatogun=Potato Gun

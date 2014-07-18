@@ -17,7 +17,7 @@ public class GUIHandler implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-        TileEntity tileEntity = world.getTileEntity(x, y, z);
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		Container container = null;
 		switch(ID)
 		{
@@ -53,7 +53,8 @@ public class GUIHandler implements IGuiHandler
 		try
 		{
 			return guiContainer != null ?
-					guiContainer.getConstructor(Container.class).newInstance(getServerGuiElement(ID, player, world, x, y, z)) :
+					guiContainer.getConstructor(Container.class)
+							.newInstance(getServerGuiElement(ID, player, world, x, y, z)) :
 					null;
 		}
 		catch(InstantiationException e)

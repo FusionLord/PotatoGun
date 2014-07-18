@@ -1,14 +1,17 @@
 package net.chazim.potatogun.init;
 
 import net.chazim.potatogun.common.item.PGItem;
+import net.chazim.potatogun.common.item.PotatoGun;
 import net.chazim.potatogun.common.item.PotatoGunPart;
 
 public class ModItems
 {
-    public static PGItem parts;
+	public static PGItem potatoGunParts;
+	public static PGItem potatoGun;
 
 	public static void init()
 	{
-		parts = new PotatoGunPart();
+		potatoGunParts = new PotatoGunPart();
+		potatoGun = new PotatoGun();
 	}
 }

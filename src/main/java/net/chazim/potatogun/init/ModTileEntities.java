@@ -6,8 +6,8 @@ import net.chazim.potatogun.common.tileentity.ForgeTE;
 
 public class ModTileEntities
 {
-    public static void init()
-    {
-        GameRegistry.registerTileEntity(ForgeTE.class, Reference.MOD_ID.toLowerCase().concat(":forgetileentity"));
-    }
+	public static void init()
+	{
+		GameRegistry.registerTileEntity(ForgeTE.class, Reference.MOD_ID.toLowerCase().concat(":forgetileentity"));
+	}
 }

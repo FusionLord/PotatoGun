@@ -15,7 +15,7 @@ public class ForgeGUI extends GuiContainer
 	@Override
 	public void initGui()
 	{
-        super.initGui();
+		super.initGui();
 	}
 
 	@Override
@@ -27,9 +27,10 @@ public class ForgeGUI extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
 	{
-        mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID.toLowerCase().concat(":textures/gui/forge.png")));
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
-        drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-    }
+		mc.getTextureManager()
+				.bindTexture(new ResourceLocation(Reference.MOD_ID.toLowerCase().concat(":textures/gui/forge.png")));
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+	}
 }

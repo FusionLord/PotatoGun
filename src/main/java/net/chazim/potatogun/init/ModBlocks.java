@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 
 public class ModBlocks
 {
-    public static Block forge;
+	public static Block forge;
 
 	public static void init()
 	{
