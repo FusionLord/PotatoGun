@@ -12,8 +12,11 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidContainerItem;
+
+import java.util.List;
 
 public class Forge extends BlockContainer
 {
@@ -29,8 +32,7 @@ public class Forge extends BlockContainer
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
 			float hitY, float hitZ)
 	{
-		if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem()
-				.getItem() instanceof IFluidContainerItem)
+		if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IFluidContainerItem)
 		{
 			IFluidContainerItem fluidContainerItem = (IFluidContainerItem) player.getCurrentEquippedItem().getItem();
 			ForgeTE fte = (ForgeTE) world.getTileEntity(x, y, z);
@@ -45,12 +47,28 @@ public class Forge extends BlockContainer
 	}
 
 	@Override
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
+	{
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+		float f = 0.125F;
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+		this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+		this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+	}
+
+	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
-		int lavalevel = world.getBlockMetadata(x, y, z);
-		float f = (float) y + (6.0F + (float) (3 * lavalevel)) / 16.0F;
-
-		if(!world.isRemote && !entity.isBurning() && lavalevel > 0 && entity.boundingBox.minY <= (double) f)
+		if(!world.isRemote
+			&& !entity.isBurning()
+			&& entity.boundingBox.minX > (double)x && entity.boundingBox.maxX < x + 1D
+			&& entity.boundingBox.minZ > (double)z && entity.boundingBox.maxZ < z + 1D)
 		{
 			entity.setFire(15);
 		}
