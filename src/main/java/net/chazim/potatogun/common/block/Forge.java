@@ -8,19 +8,22 @@ import net.chazim.potatogun.Reference;
 import net.chazim.potatogun.common.tileentity.ForgeTE;
 import net.chazim.potatogun.handler.GUIHandler;
 import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidContainerItem;
 
-public class Forge extends BlockCauldron
+public class Forge extends BlockContainer
 {
     public Forge()
     {
-        super();
+        super(Material.iron);
         setCreativeTab(Reference.PotatoGunTab);
         GameRegistry.registerBlock(this, "forge");
     }
@@ -28,7 +31,7 @@ public class Forge extends BlockCauldron
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if (player.inventory.getCurrentItem().getItem() instanceof IFluidContainerItem)
+		if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() instanceof IFluidContainerItem)
 		{
 			ForgeTE fte = (ForgeTE) world.getTileEntity(x, y, z);
 			fte.addLava();
@@ -69,5 +72,10 @@ public class Forge extends BlockCauldron
     protected String getUnwrappedUnlocalizedName(String unlocalizedName)
     {
         return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new ForgeTE();
     }
 }

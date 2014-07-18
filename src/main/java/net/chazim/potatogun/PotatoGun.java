@@ -10,6 +10,7 @@ import net.chazim.potatogun.common.CommonProxy;
 import net.chazim.potatogun.handler.GUIHandler;
 import net.chazim.potatogun.init.ModBlocks;
 import net.chazim.potatogun.init.ModItems;
+import net.chazim.potatogun.init.ModTileEntities;
 
 @Mod(modid=Reference.MOD_ID, name="Potato Gun")
 public class PotatoGun
@@ -18,7 +19,7 @@ public class PotatoGun
     public static PotatoGun instance;
 
     @SidedProxy(clientSide = Reference.CLIENTPROXY, serverSide = Reference.COMMONPROXY)
-    public CommonProxy proxy;
+    public static CommonProxy proxy;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -31,6 +32,8 @@ public class PotatoGun
     {
 		ModItems.init();
 		ModBlocks.init();
+        ModTileEntities.init();
+
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
 	}
