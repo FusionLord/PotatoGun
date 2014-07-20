@@ -1,0 +1,41 @@
+The Potato Gun should be fairly easy to obtain and use early in the game.
+  So the hardest material to obtain for the first tier gun should be the potatoes for ammo.
+There should be multiple tiers of the gun. Wood, Iron, Gold, Diamond, Emerald
+  Wooden Stock Weapons
+    Wood - Low Velocity, Low Impact, Slow Fire Rate (equivalent to a plain bow) (Bow-B-Gone)
+    Iron - Medium Velocity, Medium Impact, Medium Fire Rate (The Dirty Harry)
+    Gold - Low Velocity, Low Impact, Slow Fire Rate, Shatter-Shot (The Shotgun)
+  Obsidian Stock Weapons
+	Diamond - High Velocity, High Impact, Medium Fire Rate (The Sniper)
+    Emerald - Medium Velocity, High Impact, High Fire Rate (The Destroyer)
+Two types of Ammo
+  Potato
+  Poisonous Potato
+Three types of gun powder
+  Any colour dye - Only usable in the Tier 1 gun
+  Gunpowder - Vanilla item, provides 1 use
+  Black Powder - High yield mix of 1 sulphur and 1 black ink sac, provides 8 uses
+Tier 2-5 Guns must be made on a Forge
+  Forge is made with 7 smooth stone like a cauldron
+  Forge provides a crafting grid for parts and a slot for lava bucket (fuel)
+  Each tier of gun take longer to complete in the forge
+    Tier 2 - Instant
+	Tier 3 - 2 MC hours
+	Tier 4 - 1/2 MC Day
+	Tier 5 - Full MC Day
+Each gun consist of a stock and a barrel
+  The stock
+  _ _ _
+  _ x x
+  x _ _
+  
+  The Barrel
+  _ x x
+  _ _ _
+  _ x x
+Durability
+  Tier 1 - 256
+  Tier 2 - 768
+  Tier 3 - 512
+  Tier 4 - 1536
+  Tier 5 - Unbreakable

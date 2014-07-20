@@ -24,12 +24,6 @@ public class GUIHandler implements IGuiHandler
 			case 0:
 				container = new ForgeContainer((ForgeTE) tileEntity, player.inventory);
 				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
 		}
 		return container;
 	}
@@ -37,41 +31,10 @@ public class GUIHandler implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		Class<? extends GuiContainer> guiContainer = null;
-		switch(ID)
+		switch (ID)
 		{
 			case 0:
-				guiContainer = ForgeGUI.class;
-				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-		}
-		try
-		{
-			return guiContainer != null ?
-					guiContainer.getConstructor(Container.class)
-							.newInstance(getServerGuiElement(ID, player, world, x, y, z)) :
-					null;
-		}
-		catch(InstantiationException e)
-		{
-			e.printStackTrace();
-		}
-		catch(IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
-		catch(InvocationTargetException e)
-		{
-			e.printStackTrace();
-		}
-		catch(NoSuchMethodException e)
-		{
-			e.printStackTrace();
+				return new ForgeGUI((Container) getServerGuiElement(ID, player, world, x, y, z), (ForgeTE) world.getTileEntity(x, y, z));
 		}
 		return null;
 	}

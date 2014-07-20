@@ -13,6 +13,7 @@ import net.chazim.potatogun.handler.GUIHandler;
 import net.chazim.potatogun.handler.ModEventHandler;
 import net.chazim.potatogun.init.ModBlocks;
 import net.chazim.potatogun.init.ModItems;
+import net.chazim.potatogun.init.ModRecieps;
 import net.chazim.potatogun.init.ModTileEntities;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -37,6 +38,7 @@ public class PotatoGun
 		ModItems.init();
 		ModBlocks.init();
 		ModTileEntities.init();
+		ModRecieps.init();
 
 		MinecraftForge.EVENT_BUS.register(new ModEventHandler());
 

@@ -29,20 +29,9 @@ public class Forge extends BlockContainer
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
-			float hitY, float hitZ)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IFluidContainerItem)
-		{
-			IFluidContainerItem fluidContainerItem = (IFluidContainerItem) player.getCurrentEquippedItem().getItem();
-			ForgeTE fte = (ForgeTE) world.getTileEntity(x, y, z);
-			fluidContainerItem.drain(player.getCurrentEquippedItem(), 1000, !fte.hasLava());
-			fte.setHasLava(true);
-		}
-		else
-		{
-			player.openGui(PotatoGun.instance, 0, world, x, y, z);
-		}
+		player.openGui(PotatoGun.instance, 0, world, x, y, z);
 		return true;
 	}
 
@@ -60,6 +49,7 @@ public class Forge extends BlockContainer
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 		this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -67,8 +57,10 @@ public class Forge extends BlockContainer
 	{
 		if(!world.isRemote
 			&& !entity.isBurning()
-			&& entity.boundingBox.minX > (double)x && entity.boundingBox.maxX < x + 1D
-			&& entity.boundingBox.minZ > (double)z && entity.boundingBox.maxZ < z + 1D)
+			&& entity.boundingBox.minX > (double)x && entity.boundingBox.maxX < x + 1d
+			&& entity.boundingBox.minZ > (double)z && entity.boundingBox.maxZ < z + 1d
+			&& entity.boundingBox.minY < (double)y + 1d
+			)
 		{
 			entity.setFire(15);
 		}

@@ -1,6 +1,8 @@
 package net.chazim.potatogun.common.tileentity;
 
 import net.chazim.potatogun.Reference;
+import net.chazim.potatogun.common.item.PotatoGun;
+import net.chazim.potatogun.common.item.PotatoGunMaterial;
 import net.chazim.potatogun.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -12,8 +14,9 @@ import net.minecraft.util.StatCollector;
 public class ForgeTE extends TileEntity implements IInventory
 {
 	private ItemStack[] inventory;
-	private boolean hasLava, isWorking;
+	private boolean isWorking;
 	private int weildTime, processTime;
+	private boolean working;
 
 	public ForgeTE()
 	{
@@ -26,8 +29,14 @@ public class ForgeTE extends TileEntity implements IInventory
 	{
 		if (isWorking)
 		{
+			if (processTime == 0)
+				processTime = PotatoGunMaterial.values()[getResult(inventory[0], inventory[1]).getItemDamage() % PotatoGunMaterial.count()].getProcessTime();
+
 			if (inventory[0] == null || inventory[2] == null)
 			{
+				isWorking = false;
+				weildTime = 0;
+				processTime = 0;
 				return;
 			}
 			if (weildTime++ > processTime)
@@ -37,6 +46,7 @@ public class ForgeTE extends TileEntity implements IInventory
 				inventory[1] = null;
 				isWorking = false;
 				weildTime = 0;
+				processTime = 0;
 				return;
 			}
 		}
@@ -48,10 +58,13 @@ public class ForgeTE extends TileEntity implements IInventory
 		}
 	}
 
-	private ItemStack getResult(ItemStack itemStack, ItemStack itemStack1)
+	private ItemStack getResult(ItemStack stock, ItemStack barrel)
 	{
 		ItemStack result = null;
-		result = new ItemStack(ModItems.potatoGun, itemStack.getItemDamage() + itemStack1.getItemDamage());
+		if (stock.getItemDamage() == 0 || barrel.getItemDamage() == PotatoGunMaterial.count() + 1)
+			return null;
+		if (stock.getItemDamage() == barrel.getItemDamage() - PotatoGunMaterial.count())
+			result = new ItemStack(ModItems.potatoGun, barrel.getItemDamage() + PotatoGunMaterial.count());
 		return result;
 	}
 
@@ -59,7 +72,6 @@ public class ForgeTE extends TileEntity implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		hasLava = tag.getBoolean("hasLava");
 		for (int i = 0; i < inventory.length; i++)
 			inventory[i] = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("slot".concat(String.valueOf(i))));
 	}
@@ -68,10 +80,10 @@ public class ForgeTE extends TileEntity implements IInventory
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setBoolean("hasLava", hasLava);
 		NBTTagCompound temp;
 		for (int i = 0; i < inventory.length; i++)
 		{
+			if (inventory[i] == null) continue;
 			temp = new NBTTagCompound();
 			inventory[i].writeToNBT(temp);
 			tag.setTag("slot".concat(String.valueOf(i)), temp);
@@ -112,8 +124,7 @@ public class ForgeTE extends TileEntity implements IInventory
 	@Override
 	public String getInventoryName()
 	{
-		return StatCollector
-				.translateToLocal("container.".concat(Reference.MOD_ID.toLowerCase()).concat(":forge.name"));
+		return StatCollector.translateToLocal("container.".concat(Reference.MOD_ID.toLowerCase()).concat(":forge.name"));
 	}
 
 	@Override
@@ -136,29 +147,31 @@ public class ForgeTE extends TileEntity implements IInventory
 
 	@Override
 	public void openInventory()
-	{
-
-	}
+	{}
 
 	@Override
 	public void closeInventory()
-	{
-
-	}
+	{}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack)
 	{
-		return false;
+		int count = PotatoGunMaterial.count();
+		return stack.getItem() instanceof PotatoGun &&
+				(
+					(slot == 0 && stack.getItemDamage() < count - 1) ||
+					(slot == 1 && stack.getItemDamage() > count && stack.getItemDamage() < count * 2) ||
+					(slot == 2 && stack.getItemDamage() > count * 2 - 1)
+				);
 	}
 
-	public boolean hasLava()
+	public float getPercentage()
 	{
-		return hasLava;
+		return weildTime / processTime;
 	}
 
-	public void setHasLava(boolean hasLava)
+	public boolean isWorking()
 	{
-		this.hasLava = hasLava;
+		return working;
 	}
 }
